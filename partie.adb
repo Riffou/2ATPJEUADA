@@ -1,5 +1,5 @@
 package body Partie is
-	procedure Joue Partie (E : in out Etat; J : in Joueur) is
+	procedure Joue_Partie (E : in out Etat; J : in Joueur) is
 		Coup_suivant : Coup;
 	begin
 		for I in 1..10 loop
@@ -10,7 +10,7 @@ package body Partie is
 			if Est_Gagnant(E, J) then
 				put("Le joueur 1 a gagné");
 			else
-				if Est_Nul(E : Etat) then
+				if Est_Nul(E) then
 					put("Match nul");
 				end if;
 			end if;
@@ -21,11 +21,11 @@ package body Partie is
 			if Est_Gagnant(E, Joueur2) then
 				put("Le joueur 1 a gagné");
 			else
-				if Est_Nul(E : Etat) then
+				if Est_Nul(E) then
 					put("Match nul");
 				end if;
 			end if;
 		end loop;
-	end Joue Partie;
-
+	end Joue_Partie;
+	
 end Partie;

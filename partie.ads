@@ -5,11 +5,11 @@ use Participant;
 generic
     type Etat is private;
     type Coup is private;
-   
     -- Nom affichable du Joueur1
     Nom_Joueur1 : String;
     -- Nom affichable du Joueur2   
     Nom_Joueur2 : String;
+	
     -- Calcule l'etat suivant en appliquant le coup
     with function Etat_Suivant(E : Etat; C : Coup) return Etat;
     -- Indique si l'etat courant est gagnant pour le joueur J
