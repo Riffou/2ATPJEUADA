@@ -29,9 +29,9 @@ package Puissance4 is
     procedure Afficher(E : Etat);
     -- Affiche a l'ecran le coup passe en parametre
     procedure Affiche_Coup(C : in Coup);   
-    -- Retourne le prochaine coup joue par le joueur1
+    -- Retourne le prochain coup joue par le joueur1
     function Demande_Coup_Joueur1(E : Etat) return Coup;
-    -- Retourne le prochaine coup joue par le joueur2   
+    -- Retourne le prochain coup joue par le joueur2   
     function Demande_Coup_Joueur2(E : Etat) return Coup;   
 
 	procedure Initialiser (etat_initial : in out Etat);
