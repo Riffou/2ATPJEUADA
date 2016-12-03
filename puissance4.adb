@@ -7,41 +7,202 @@ package body Puissance4 is
 			   etat_initial(i,j) := 0;
 			end loop;
 		end loop;
-		return etat_initial;
 	end Initialiser;
 	
     -- Calcule l'etat suivant en appliquant le coup
-    function Etat_Suivant(E : Etat; C : Coup) return Etat is
-		I : Integer :=1;
+    function Jouer(E : Etat; C : Coup) return Etat is
+		I : Integer := 1;
+		F : Etat := E;
 	begin
-		while I < Hauteur+1 and E(I,C.Colonne) = 0 loop
+		while I <= Hauteur and F(I,C.Colonne) != 0 loop
 				I := I + 1;
 		end loop;
 		if I > Hauteur then
 			put("Coup Impossible");
 		else
 			if C.J = Joueur1 then
-				E(I,C.Colonne) := 1;
+				F(I,C.Colonne) := 1;
 			else
-				E(I,C.Colonne) := 2;
+				F(I,C.Colonne) := 2;
 			end if;
 		end if;
-		return Etat; 
-	end Etat_Suivant;
+		return F; 
+	end Jouer;
 	
     -- Indique si l'etat courant est gagnant pour le joueur J
     function Est_Gagnant(E : Etat; J : Joueur) return Boolean is
+		NbAligneHorizontal : Integer := 0;
+		NbAligneVertical : Integer := 0;
+		NbAligneDiagonal : Integer := 0;
+		NbAligneDiagonalInverse : Integer := 0;
+		Diagonal : Integer := 0;
+		NumeroJoueur : Integer;
 	begin
+		if J = Joueur1 then
+			NumeroJoueur := 1;
+		else
+			NumeroJoueur := 2;
+		end if;
+		
+		-- Alignement horizontal
+		for I in range 1..Hauteur loop 
+			for J in range 1..Largeur loop
+				-- Alignement Horizontal
+				if E(I, J) = NumeroJoueur then
+					NbAligneHorizontal := NbAligneHorizontal + 1;
+				else
+					NbAligneHorizontal := 0;
+				end if;
+				
+				-- Si le nombre de jetons alignés horizontalement est bon
+				if NbAligneHorizontal = NombreAligne then
+					return true;
+				end if;
+			end loop;
+			NbAligneHorizontal := 0;
+		end loop;
+		
+		-- Alignement vertical 
+		for I in range 1..Largeur loop 
+			for J in range 1..Hauteur loop
+				if E(J, I) = NumeroJoueur then
+					NbAligneVertical := NbAligneVertical + 1;
+				else
+					NbAligneVertical := 0;
+				end if;
+				
+				-- Si le nombre de jetons alignés verticalement est bon
+				if NbAligneVertical = NombreAligne then
+					return true;
+				end if;
+			end loop;
+			NbAligneVerticalement := 0;
+		end loop;
+		
+		-- Alignement diagonal
+		Diagonal := Integer'Max(Hauteur, Largeur);
+		for I in range 0..(Diagonal - NombreAligne) loop
+			for J in range 1..(Diagonal - I) loop
+				if E(J, J + I) = NumeroJoueur then
+					NbAligneDiagonal := NbAligneDiagonal + 1;
+				else
+					NbAligneDiagonal := 0;
+				end if;
+			end loop;
+			NbAligneDiagonal := 0;
+		end loop;
+		
+		-- Alignement diagonal inversé
+		for I in range 0..(Diagonal - NombreAligne) loop
+			for J in range 1..(Diagonal - I) loop
+				if E(Diagonal - J, Diagonal - J - I) = NumeroJoueur then
+					NbAligneDiagonalInverse := NbAligneDiagonalInverse + 1;
+				else
+					NbAligneDiagonalInverse := 0;
+				end if;
+			end loop;
+			NbAligneDiagonalInverse := 0;
+		end loop;
+		
+		return false;
 	end Est_Gagnant;
+	
     -- Indique si l'etat courant est un status quo (match nul)
-    function Est_Nul(E : Etat) return Boolean; 
+    function Est_Nul(E : Etat) is
+	begin
+		if Not(Est_Gagnant(E, Joueur1) AND Not(Est_Gagnant(E,Joueur2)) then
+			return true;
+		end if;
+		return false;
+	end Est_Nul
+	
     -- Fonction d'affichage de l'etat courant du jeu
-    procedure Affiche_Jeu(E : Etat);
+    procedure Affiche_Jeu(E : Etat) is
+	begin
+		-- Affichage des numéros de colonne
+		for I in 1..Largeur loop
+			Put (I + " ");
+		end loop;
+		New_Line;
+		-- Affichage des pions et de la grille
+		for I in 0..Hauteur loop
+			for J in 1..Largeur loop
+				Put("| ");
+				if E(I, J) = 1 then
+					Put("X ");
+				elsif E(I, J) = 2 then
+					Put("O ");
+				end if;
+			end loop;
+			Put(" |");
+			New_Line;
+		end loop;
+		New_line;
+		New_line;
+	end Affiche_Jeu;
+	
     -- Affiche a l'ecran le coup passe en parametre
-    procedure Affiche_Coup(C : in Coup);   
-    -- Retourne le prochaine coup joue par le joueur1
-    function Coup_Joueur1(E : Etat) return Coup;
-    -- Retourne le prochaine coup joue par le joueur2   
-    function Coup_Joueur2(E : Etat) return Coup;   
+    procedure Affiche_Coup(C : in Coup) is 
+	begin
+		if C.J = Joueur1 then
+			Put("Joueur 1 joue : " + C.Colonne);
+		else
+			Put("Joueur 2 joue : " + C.Colonne);
+		end if;
+	end Affiche_Coup;
+	
+    -- Retourne le prochain coup joue par le joueur1
+    function Demande_Coup_Joueur1(E : Etat) is
+		ColonneJ : Integer;
+		I : Integer := 1;
+		CoupValable : Boolean := false;
+		CoupJoueur1 : Coup;
+	begin
+		while CoupValable = false loop
+			Put("Que voulez-vous jouer Joueur 1 ?");
+			New_Line;
+			Get(ColonneJ);
+			-- Vérifier que la demande de coup est possible
+			while I <= Hauteur and E(I,ColonneJ) != 0 loop
+					I := I + 1;
+			end loop;
+			if I > Hauteur then
+				put("Coup Impossible");
+			else
+				CoupValable := true;
+			end if;
+			I := 1;
+		end loop;
+		CoupJoueur1.Joueur := 1;
+		CoupJoueur1.Colonne := ColonneJ;
+		return CoupJoueur1;
+	end Demande_Coup_Joueur1;
+	
+    -- Retourne le prochain coup joue par le joueur2   
+    function Demande_Coup_Joueur2(E : Etat) is
+		ColonneJ : Integer;
+		I : Integer := 1;
+		CoupValable : Boolean := false;
+		CoupJoueur2 : Coup;
+	begin
+		while CoupValable = false loop
+			Put("Que voulez-vous jouer Joueur 2 ?");
+			New_Line;
+			Get(ColonneJ);
+			-- Vérifier que la demande de coup est possible
+			while I <= Hauteur and E(I,ColonneJ) != 0 loop
+					I := I + 1;
+			end loop;
+			if I > Hauteur then
+				put("Coup Impossible");
+			else
+				CoupValable := true;
+			end if;
+			I := 1;
+		end loop;
+		CoupJoueur2.Joueur := 2;
+		CoupJoueur2.Colonne := ColonneJ;
+		return CoupJoueur2;
+	end Demande_Coup_Joueur2;
 	
 end Puissance4;
