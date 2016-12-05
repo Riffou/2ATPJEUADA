@@ -1,0 +1,88 @@
+V "GNAT Lib v4.8"
+M P W=b
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV SPARK
+
+U main2joueurs%b	main2joueurs.adb	89e6b8b0 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W participant%s		participant.adb		participant.ali
+W partie%s		partie.adb		partie.ali
+W puissance4%s		puissance4.adb		puissance4.ali
+W system.concat_2%s	s-conca2.adb		s-conca2.ali
+W system.img_int%s	s-imgint.adb		s-imgint.ali
+
+D ada.ads		20121213103024 3ffc8e18
+D a-except.ads		20121213103024 10fcae55
+D a-finali.ads		20121213103024 52ecdc1b
+D a-inteio.ads		20121213103029 f64b89a4
+D a-ioexce.ads		20121213103029 8b9de6cd
+D a-stream.ads		20121213103024 2ca4ee37
+D a-tags.ads		20121213103024 6c0509d0
+D a-textio.ads		20130106093217 386df5d4
+D a-tiinio.ads		20121213103024 aa04e5d6
+D a-unccon.ads		20121213103024 f9eb8f06
+D interfac.ads		20121213103024 129923ea
+D i-cstrea.ads		20130106093208 3286f6aa
+D main2joueurs.adb	20161205185918 6ce7c5b4
+D participant.ads	20161205104553 4dfe5e91
+D partie.ads		20161205104553 eed4a57a
+D partie.adb		20161205104553 c47fd3f1
+D puissance4.ads	20161205104553 880dfa9f
+D puissance4.adb	20161205185158 ddf0f6f5
+D system.ads		20121213103024 90249111
+D s-conca2.ads		20121213103024 fbd0f2fc
+D s-crtl.ads		20130106093200 1ea48bce
+D s-exctab.ads		20121213103029 66e51330
+D s-ficobl.ads		20121213103029 55a71d43
+D s-finmas.ads		20121213103024 b95bb341
+D s-finroo.ads		20121213103024 4ff27390
+D s-imgint.ads		20121213103024 02dbe0c2
+D s-parame.ads		20121213103024 b6e20cc0
+D s-pooglo.ads		20121213103024 542f33d0
+D s-soflin.ads		20121213103024 24c8153c
+D s-stache.ads		20121213103024 596fc1b4
+D s-stalib.ads		20130106093355 f78bcf95
+D s-stoele.ads		20121213103024 facd7d98
+D s-stoele.adb		20121213103024 afc5dc80
+D s-stopoo.ads		20121213103024 7b8fbeee
+D s-traent.ads		20121213103024 5221ee41
+D s-unstyp.ads		20121213103024 6ae15c76
+D s-wchcon.ads		20121213103024 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 13|1r6 2r6 7r5 8r5
+X 4 a-inteio.ads
+18K13*Integer_Text_IO[9|45] 13|2w10 8r9
+X 8 a-textio.ads
+49K13*Text_IO 471e16 13|1w10 7r9
+263U14*Put_Line 13|32s4 33s4 34s4 35s4
+X 13 main2joueurs.adb
+11U11*Main2Joueurs 11b11 40l5 40t17
+13K12 MyPuissance4[17|13] 16r35 17r35 20r35 21r35 22r35 23r35 24r35 25r35
+. 26r35 29r7 37r4
+16K12 MyPartie[15|31] 27r8
+29a4 P{17|15A14[13]} 37m29 37r29 39m16 39r16
+X 14 participant.ads
+1K9*Participant 13|4w6 9r5 14|8e16
+3n30*Joueur2{3E10} 13|39r19
+X 15 partie.ads
+31k9*Partie 13|5w6 16r28 15|39e11
+37U15 Joue_Partie 13|39s4[16]
+X 17 puissance4.ads
+13k9*Puissance4 13|3w6 13r32 17|39e15
+15A14 Etat(integer)<integer><integer> 13|16r48[13] 29r20[13]
+17R14 Coup 13|17r48[13]
+23V14 Jouer{15A14[13|13]} 13|20r48[13]
+25V14 Est_Gagnant{boolean} 13|21r48[13]
+27V14 Est_Nul{boolean} 13|22r48[13]
+29U15 Afficher 13|23r48[13]
+31U15 Affiche_Coup 13|24r48[13]
+33V14 Demande_Coup_Joueur1{17R14[13|13]} 13|25r48[13]
+35V14 Demande_Coup_Joueur2{17R14[13|13]} 13|26r48[13]
+37U19 Initialiser 13|37s17[13]
+

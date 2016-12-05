@@ -3,12 +3,14 @@ with Ada.Integer_Text_IO;
 with Puissance4;
 with Participant;
 with Partie;
+with Liste_Generique;
+with Moteur_Jeu;
 
 use Ada.Text_IO;
 use Ada.Integer_Text_IO;
 use Participant;
 
-procedure Main2Joueurs is
+procedure Main1Joueur is
 
    package MyPuissance4 is new Puissance4(3,3,3);
 
@@ -26,6 +28,19 @@ procedure Main2Joueurs is
 				  MyPuissance4.Demande_Coup_Joueur2);
    use MyPartie;
 
+   package MyMoteurJeu is new Moteur_Jeu(MyPuissance4.Etat,
+                    MyPuissance4.Coup,
+                    MyPuissance4.Jouer,
+                    MyPuissance4.Est_Gagnant,
+                    MyPuissance4.Est_Nul,
+                    MyPuissance4.Affiche_Coup,
+                    MyPuissance4.Liste_Coups,
+                    MyPuissance4.Coups_Possibles,
+                    MyPuissance4.Eval,
+                    2,
+                    Joueur2);
+    use MyMoteurJeu;
+
    P: MyPuissance4.Etat;
 
 begin
@@ -37,4 +52,4 @@ begin
    MyPuissance4.Initialiser(P);
 
    Joue_Partie(P, Joueur2);
-end Main2Joueurs;
+end Main1Joueur;

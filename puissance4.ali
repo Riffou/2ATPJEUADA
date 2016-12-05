@@ -1,0 +1,158 @@
+V "GNAT Lib v4.8"
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_STANDARD_STORAGE_POOLS
+RV SPARK
+
+U puissance4%b		puissance4.adb		f2376ed8 NE OO PK GE
+
+U puissance4%s		puissance4.ads		9269934a BN EE NE OO PK GE
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z ada.unchecked_deallocation%s
+W liste_generique%s	liste_generique.adb	liste_generique.ali
+W participant%s		participant.adb		participant.ali
+
+D ada.ads		20121213103024 3ffc8e18
+D a-except.ads		20121213103024 10fcae55
+D a-finali.ads		20121213103024 52ecdc1b
+D a-inteio.ads		20121213103029 f64b89a4
+D a-ioexce.ads		20121213103029 8b9de6cd
+D a-stream.ads		20121213103024 2ca4ee37
+D a-tags.ads		20121213103024 6c0509d0
+D a-textio.ads		20130106093217 386df5d4
+D a-tiinio.ads		20121213103024 aa04e5d6
+D a-unccon.ads		20121213103024 f9eb8f06
+D a-uncdea.ads		20121213103024 f15a5ed1
+D interfac.ads		20121213103024 129923ea
+D i-cstrea.ads		20130106093208 3286f6aa
+D liste_generique.ads	20161205215429 61fb96d3
+D liste_generique.adb	20161205221132 73a6f544
+D participant.ads	20161205104553 4dfe5e91
+D puissance4.ads	20161205204819 704a2778
+D puissance4.adb	20161205221320 827d49a0
+D system.ads		20121213103024 90249111
+D s-crtl.ads		20130106093200 1ea48bce
+D s-exctab.ads		20121213103029 66e51330
+D s-ficobl.ads		20121213103029 55a71d43
+D s-finmas.ads		20121213103024 b95bb341
+D s-finroo.ads		20121213103024 4ff27390
+D s-parame.ads		20121213103024 b6e20cc0
+D s-pooglo.ads		20121213103024 542f33d0
+D s-soflin.ads		20121213103024 24c8153c
+D s-stache.ads		20121213103024 596fc1b4
+D s-stalib.ads		20130106093355 f78bcf95
+D s-stoele.ads		20121213103024 facd7d98
+D s-stoele.adb		20121213103024 afc5dc80
+D s-stopoo.ads		20121213103024 7b8fbeee
+D s-traent.ads		20121213103024 5221ee41
+D s-unstyp.ads		20121213103024 6ae15c76
+D s-wchcon.ads		20121213103024 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 17|1r6 2r6 5r5 6r5
+X 4 a-inteio.ads
+18K13*Integer_Text_IO[9|45] 17|2w10 6r9
+X 8 a-textio.ads
+49K13*Text_IO 471e16 17|1w10 5r9
+166U14*New_Line 18|142s17 156s25 158s17 160s17 161s17 169s25 172s25 174s17
+. 197s33 228s33
+242U14*Put 18|138s17 140s25 146s33 148s41 150s41 152s41 155s25 159s17 168s25
+. 171s25 196s33 227s33
+X 9 a-tiinio.ads
+55U14*Get 18|186s25[4|18] 217s25[4|18]
+X 14 liste_generique.ads
+15k9*Liste_Generique 63e20 17|4w6 40r36
+16P10 Liste(49R10[17|40]) 17|42r75[40] 18|239r75[17|40] 242r33[17|40]
+23U15 Insere_Tete 18|258s53[17|40]
+29V14 Creer_Liste{16P10[17|40]} 18|242s54[17|40]
+49R10 Cellule
+X 16 participant.ads
+1K9*Participant 8e16 17|3w6 7r5
+3E10*Joueur 3e38 17|20r21 27r40 42r48 18|29r40 239r48
+3n21*Joueur1{3E10} 18|20r26 38r24 128r39 167r26 203r34
+3n30*Joueur2{3E10} 18|128r71 234r34
+X 17 puissance4.ads
+11i9 Largeur{integer} 17r43 18|6r37 46r37 63r29 80r50 122r37 139r29 145r37
+. 247r36
+12i9 Hauteur{integer} 17r31 18|5r29 17r28 17r42 21r27 23r27 45r29 64r37 80r41
+. 121r29 144r29 188r36 195r32 219r36 226r32 249r44 256r40
+13i9 NombreAligne{integer} 18|55r57 72r55 81r41 89r55 100r41 107r62
+15k9*Puissance4 11z9 12z9 13z9 48l5 48e15 18|1b14 272l5 272t15
+17A14*Etat(integer)<integer><integer> 25r24 25r47 27r30 29r26 31r28 35r39
+. 37r39 42r38 44r27 46r54 18|3r53 13r22 13r45 15r21 29r30 118r26 135r28 178r39
+. 209r39 239r38 267r27
+19R14*Coup 22e19 25r34 33r35 35r52 37r52 40r52 18|13r32 165r35 178r52 182r31
+. 209r52 213r31 244r21
+20e17 J{16|3E10} 18|20r22 167r22 203m29 234m29 246m19
+21i17 Colonne{integer} 18|17r60 21r45 23r45 168r66 171r66 204m29 235m29 257m43
+25V14*Jouer{17A14} 25>20 25>30 18|13b12 26l13 26t18
+25a20 E{17A14} 18|13b18 15r29
+25r30 C{19R14} 18|13b28 17r58 20r20 21r43 23r43
+27V14*Est_Gagnant{boolean} 27>26 27>36 18|29b14 115l13 115t24 128s24 128s57
+27a26 E{17A14} 18|29b26 48r36 65r36 84r36 102r36
+27e36 J{16|3E10} 18|29b36 38r20
+29V14*Est_Nul{boolean} 29>22 18|118b14 132l13 132t20
+29a22 E{17A14} 18|118b22 123r36 128r36 128r69
+31U15*Afficher 31>24 18|135b15 162l13 162t21
+31a24 E{17A14} 18|135b24 147r36 149r39
+33U15*Affiche_Coup 33>28 40r58 18|165b15 175l13 175t25
+33r28 C{19R14} 18|165b28 167r20 168r64 171r64
+35V14*Demande_Coup_Joueur1{19R14} 35>35 18|178b14 206l13 206t33
+35a35 E{17A14} 18|178b35 189r36
+37V14*Demande_Coup_Joueur2{19R14} 37>35 18|209b14 237l13 237t33
+37a35 E{17A14} 18|209b35 220r36
+40K17*Liste_Coups[14|15] 42r63 18|239r63 242r21 242r42 258r41
+42V18*Coups_Possibles{14|16P10[40]} 42>34 42>44 18|239b18 265l13 265t28
+42a34 E{17A14} 18|239b34 250r44
+42e44 J{16|3E10} 18|239b44 246r24
+44V18*Eval{integer} 44>23 18|267b18 270l13 270t17
+44a23 E{17A14} 18|267b23
+46U19*Initialiser 46=32 18|3b19 10l13 10t24
+46a32 etat_initial{17A14} 18|3b31 7m28
+X 18 puissance4.adb
+5i21 i{integer} 7r41
+6i29 j{integer} 7r43
+14i17 I{integer} 17r23 17r56 18m33 18r38 21r41 23r41
+15a17 F{17|17A14} 17r40 21m25 23m25 25r24
+30i17 NbAligneHorizontal{integer} 49m41 49r63 51m41 55r36 59m25
+31i17 NbAligneVertical{integer} 66m41 66r61 68m41 72r36 76m25
+32i17 NbAligneDiagonal{integer} 85m41 85r61 87m41 89r36 93m25
+33i17 NbAligneDiagonalInverse{integer} 103m41 103r68 105m41 107r36 111m25
+34i17 Diagonal{integer} 80m17 81r30 82r38 100r30 101r38 102r38
+35i17 NumeroJoueur{integer} 39m25 41m25 48r46 65r46 84r50 102r65
+36i17 Compteur{integer} 95m17
+45i21 I{integer} 48r38
+46i29 J{integer} 48r41
+63i21 I{integer} 65r41
+64i29 J{integer} 65r38
+81i21 I{integer} 82r49 84r45
+82i29 J{integer} 84r38 84r41
+100i21 I{integer} 101r49 102r49
+101i29 J{integer} 102r53 102r60
+119b17 GrilleRemplie{boolean} 124m41 128r85
+121i21 I{integer} 123r38
+122i29 J{integer} 123r41
+139i21 I{integer} 140r44
+144i21 I{integer} 147r38 149r41
+145i29 J{integer} 147r41 149r44
+179i17 ColonneJ{integer} 186m29 189r41 204r40
+180i17 I{integer} 188r31 189r38 190m41 190r46 195r28 201m25
+181b17 CoupValable{boolean} 185r23 199m33
+182r17 CoupJoueur1{17|19R14} 203m17 204m17 205r24
+183b17 Break{boolean} 188r52 192m41
+210i17 ColonneJ{integer} 217m29 220r41 235r40
+211i17 I{integer} 219r31 220r38 221m41 221r46 226r28 232m25
+212b17 CoupValable{boolean} 216r23 230m33
+213r17 CoupJoueur2{17|19R14} 234m17 235m17 236r24
+214b17 Break{boolean} 219r52 223m41
+240i17 I{integer} 249r39 250r46 251m49 251r54 256r36 261m33
+241b17 break{boolean} 249r60 253m49
+242p17 L{14|16P10[17|40]} 258m68 258r68 264r24
+243b17 CoupValable{boolean} 248r31 259m41
+244r17 C{17|19R14} 246m17 257m41 258r65
+247i21 ColonneJ{integer} 250r49 257r54
+
