@@ -13,17 +13,15 @@ package body Moteur_jeu is
 		-- On initialise les variables avec le premier coup de la liste
 		Meilleur_Coup := Liste_Coups.Element_Courant(It);
 		Eval := Eval_Min_Max(E, P, Meilleur_Coup, JoueurMoteur);
-		//Put(Eval);
-		//Affiche_Coup(Meilleur_Coup);
+		-- On boucle sur tout les coups possibles
 		while Liste_Coups.A_Suivant(It) loop
-			-- On boucle sur tout les coups possible
 			Liste_Coups.Suivant(It);
 			C := Liste_Coups.Element_Courant(It);
 			I := Eval_Min_Max(E, P, C, JoueurMoteur);
 			Put(I);
 			Affiche_Coup(C);
+			-- On garde le coup avec la meilleure évaluation
 			if I>Eval then
-				-- On garde le coup avec la meilleure évaluation
 				Meilleur_Coup := C;
 				Eval := I;
 			end if;
@@ -41,7 +39,6 @@ package body Moteur_jeu is
 		Meilleur_Coup : Coup;
 		Eva,I : Integer;
 		Advers : Joueur := Adversaire(J);
-		K : Joueur;
 	begin
 		--si le coup est gagnant on renvoie 100 (plus grande évaluation possible)
 		if Est_Gagnant(EtatSuivant, JoueurMoteur) then
@@ -60,44 +57,34 @@ package body Moteur_jeu is
 		
 		--Si la profondeur est atteinte (P=0), on utilise l'évaluation statique
 		if P = 0 then
-			K := Joueur2;
-			Eva := Eval(EtatSuivant, K) - Eval(EtatSuivant, Adversaire(K));
+			Eva := Eval(EtatSuivant, JoueurMoteur) - Eval(EtatSuivant, Adversaire(JoueurMoteur));
 		
 		--Si elle n'est pas atteinte, on teste tout les coups possible à partir de cet état
 		else
-			if J = Joueur1 then
-				L := Coups_Possibles(EtatSuivant, Advers);
-				It := Liste_Coups.Creer_Iterateur(L);
-				-- même principe que dans la fonction Choix_Coup
-				Meilleur_Coup := Liste_Coups.Element_Courant(It);
-				Eva := Eval_Min_Max(EtatSuivant, P-1, Meilleur_Coup, Advers);
-				while Liste_Coups.A_Suivant(It) loop
-					Liste_Coups.Suivant(It);
-					Courant := Liste_Coups.Element_Courant(It);
-					-- l'évaluation s'effectue à une profondeur P-1
-					I := Eval_Min_Max(EtatSuivant, P-1, Courant, Advers);
-					-- on remonte le coup avec la meilleur evaluation (Max)
+			-- même principe que dans la fonction Choix_Coup
+			L := Coups_Possibles(EtatSuivant, Advers);
+			It := Liste_Coups.Creer_Iterateur(L);
+			Meilleur_Coup := Liste_Coups.Element_Courant(It);
+			Eva := Eval_Min_Max(EtatSuivant, P-1, Meilleur_Coup, Advers);
+			while Liste_Coups.A_Suivant(It) loop
+				Liste_Coups.Suivant(It);
+				Courant := Liste_Coups.Element_Courant(It);
+				-- l'évaluation s'effectue à une profondeur P-1
+				I := Eval_Min_Max(EtatSuivant, P-1, Courant, Advers);
+				-- on remonte le coup avec la meilleur evaluation (Max)
+				if J = Adversaire(JoueurMoteur) then
 					if I>Eva then
 						Meilleur_Coup := Courant;
 						Eva := I;
 					end if;
-				end loop;
-			else
-				L := Coups_Possibles(EtatSuivant, Advers);
-				It := Liste_Coups.Creer_Iterateur(L);
-				Meilleur_Coup := Liste_Coups.Element_Courant(It);
-				Eva := Eval_Min_Max(EtatSuivant, P-1, Meilleur_Coup, Advers);
-				while Liste_Coups.A_Suivant(It) loop
-					Liste_Coups.Suivant(It);
-					Courant := Liste_Coups.Element_Courant(It);
-					I := Eval_Min_Max(EtatSuivant, P-1, Courant, Advers);
-					-- On remonte le coup avec la moins bonne evaluation (Min)
+				-- On remonte le coup avec la moins bonne evaluation (Min)
+				else
 					if I<Eva then
 						Meilleur_Coup := Courant;
 						Eva := I;
 					end if;
-				end loop;
-			end if;
+				end if;
+			end loop;
 		end if;
 		return Eva;
 	end Eval_Min_Max;
