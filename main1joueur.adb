@@ -12,7 +12,7 @@ use Participant;
 
 procedure Main1Joueur is
 
-   package MyPuissance4 is new Puissance4(3,3,3);
+   package MyPuissance4 is new Puissance4(7,7,4);
 
    package MyMoteurJeu is new Moteur_Jeu(MyPuissance4.Etat,
                     MyPuissance4.Coup,
@@ -23,7 +23,7 @@ procedure Main1Joueur is
                     MyPuissance4.Liste_Coups,
                     MyPuissance4.Coups_Possibles,
                     MyPuissance4.Eval,
-                    1,
+                    3,
                     Joueur2);
     use MyMoteurJeu;
 

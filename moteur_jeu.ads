@@ -1,7 +1,10 @@
 with Participant; use Participant;
 with Liste_Generique;
 with Ada.Text_IO;
+with Ada.Integer_Text_IO;
 with Puissance4;
+use Ada.Text_IO;
+use Ada.Integer_Text_IO;
 
 generic
     type Etat is private;

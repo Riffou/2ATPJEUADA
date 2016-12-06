@@ -14,7 +14,7 @@ package body Puissance4 is
 		I : Integer := 1;
 		F : Etat := E;
 	begin
-		while I <= Hauteur and F(Hauteur + 1 - I,C.Colonne) /= 0 loop
+		while I < Hauteur and then F(Hauteur + 1 - I,C.Colonne) /= 0 loop
 				I := I + 1;
 		end loop;
 		if C.J = Joueur1 then
@@ -247,28 +247,102 @@ package body Puissance4 is
 	begin
 		C.J := J;
 		for ColonneJ in 1..Largeur loop
-			while CoupValable = false loop
-				while I <= Hauteur and not(break) loop
-					if E(I, ColonneJ) /= 0 then
-						I := I + 1;
-					else
-						break := true;
-					end if;
-				end loop;
-				if I < Hauteur then
-					C.Colonne := ColonneJ;
-					Liste_Coups.Insere_Tete(C, L);
-					CoupValable := true;
+			while I <= Hauteur and not(break) loop
+				if E(I, ColonneJ) /= 0 then
+					I := I + 1;
+				else
+					break := true;
 				end if;
-				I := 1;
 			end loop;
+			break := false;
+			if I < Hauteur then
+				C.Colonne := ColonneJ;
+				Liste_Coups.Insere_Tete(C, L);
+			end if;
+			I := 1;
 		end loop;
 		return L;
 	end Coups_Possibles;
 
 	function Eval(E : Etat) return Integer is
+		NbAligneHorizontal : Integer := 0;
+		NbAligneVertical : Integer := 0;
+		NbAligneDiagonal : Integer := 0;
+		NbAligneDiagonalInverse : Integer := 0;
+		Diagonal : Integer := 0;
+		NumeroJoueur : Integer := 2;
+		Compteur : Integer := 0;
+		Eva : Integer := 0;
 	begin
-		return 1;
+
+		-- Alignement horizontal
+		for I in 1..Hauteur loop
+			for J in 1..Largeur loop
+				-- Alignement Horizontal
+				if E(I, J) = NumeroJoueur then
+					NbAligneHorizontal := NbAligneHorizontal + 1;
+				else
+					NbAligneHorizontal := 0;
+				end if;
+
+				-- Si le nombre de jetons alignés horizontalement est bon
+				if NbAligneHorizontal = NombreAligne-1 then
+					Eva := Eva + 10;
+				end if;
+			end loop;
+			NbAligneHorizontal := 0;
+		end loop;
+
+		-- Alignement vertical
+		for I in 1..Largeur loop
+			for J in 1..Hauteur loop
+				if E(J, I) = NumeroJoueur then
+					NbAligneVertical := NbAligneVertical + 1;
+				else
+					NbAligneVertical := 0;
+				end if;
+
+				-- Si le nombre de jetons alignés verticalement est bon
+				if NbAligneVertical = NombreAligne-1 then
+					Eva := Eva + 10;
+				end if;
+			end loop;
+			NbAligneVertical := 0;
+		end loop;
+
+		-- Alignement diagonal
+		Diagonal := Integer'Max(Hauteur, Largeur);
+		for I in 0..(Diagonal - NombreAligne) loop
+			for J in 1..(Diagonal - I) loop
+
+				if E(J, J + I) = NumeroJoueur then
+					NbAligneDiagonal := NbAligneDiagonal + 1;
+				else
+					NbAligneDiagonal := 0;
+				end if;
+				if NbAligneDiagonal = NombreAligne-1 then
+					Eva := Eva + 10;
+				end if;
+			end loop;
+			NbAligneDiagonal := 0;
+		end loop;
+		Compteur := 0;
+
+		-- Alignement diagonal inversé
+		for I in 0..(Diagonal - NombreAligne) loop
+			for J in 1..(Diagonal - I) loop
+				if E(Diagonal - I - J + 1, J) = NumeroJoueur then
+					NbAligneDiagonalInverse := NbAligneDiagonalInverse + 1;
+				else
+					NbAligneDiagonalInverse := 0;
+				end if;
+				if NbAligneDiagonalInverse = NombreAligne-1 then
+					Eva := Eva +10;
+				end if;
+			end loop;
+			NbAligneDiagonalInverse := 0;
+		end loop;
+		return Eva;
 	end Eval;
 
 end Puissance4;

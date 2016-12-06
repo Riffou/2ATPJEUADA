@@ -9,10 +9,14 @@ package body Moteur_jeu is
 	begin
 		Meilleur_Coup := Liste_Coups.Element_Courant(It);
 		Eval := Eval_Min_Max(E, P, Meilleur_Coup, JoueurMoteur);
+		Put(Eval);
+		Affiche_Coup(Meilleur_Coup);
 		while Liste_Coups.A_Suivant(It) loop
 			Liste_Coups.Suivant(It);
 			C := Liste_Coups.Element_Courant(It);
 			I := Eval_Min_Max(E, P, C, JoueurMoteur);
+			Put(I);
+			Affiche_Coup(C);
 			if I>Eval then
 				Meilleur_Coup := C;
 				Eval := I;
@@ -30,13 +34,13 @@ package body Moteur_jeu is
 		Eva,I : Integer;
 		Advers : Joueur := Adversaire(J);
 	begin
-		if Est_Gagnant(EtatSuivant, J) then
+		if Est_Gagnant(EtatSuivant, JoueurMoteur) then
 			return 100;
 		end if;
 		if Est_Nul(EtatSuivant) then
 			return 0;
 		end if;
-		if Est_Gagnant(EtatSuivant, Advers) then
+		if Est_Gagnant(EtatSuivant, Adversaire(JoueurMoteur)) then
 			return -100;
 		end if;
 		if P = 0 then

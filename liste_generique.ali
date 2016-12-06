@@ -28,8 +28,8 @@ D a-unccon.ads		20121213103024 f9eb8f06
 D a-uncdea.ads		20121213103024 f15a5ed1
 D interfac.ads		20121213103024 129923ea
 D i-cstrea.ads		20130106093208 3286f6aa
-D liste_generique.ads	20161206004818 b1fb47f6
-D liste_generique.adb	20161206005622 34bef7aa
+D liste_generique.ads	20161206093616 b1fb47f6
+D liste_generique.adb	20161206093616 34bef7aa
 D system.ads		20121213103024 90249111
 D s-crtl.ads		20130106093200 1ea48bce
 D s-exctab.ads		20121213103029 66e51330
