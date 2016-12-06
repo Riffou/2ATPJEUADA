@@ -18,8 +18,6 @@ package body Moteur_jeu is
 			Liste_Coups.Suivant(It);
 			C := Liste_Coups.Element_Courant(It);
 			I := Eval_Min_Max(E, P, C, JoueurMoteur);
-			Put(I);
-			Affiche_Coup(C);
 			-- On garde le coup avec la meilleure évaluation
 			if I>Eval then
 				Meilleur_Coup := C;
