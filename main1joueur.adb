@@ -27,7 +27,7 @@ procedure Main1Joueur is
                     Joueur2);
     use MyMoteurJeu;
 
-   -- definition d'une partie entre un humain en Joueur 1 et un humain en Joueur 2
+   -- definition d'une partie entre un humain en Joueur 1 et un ordinateur en Joueur 2
    package MyPartie is new Partie(MyPuissance4.Etat,
 				  MyPuissance4.Coup,
 				  "Pierre",
