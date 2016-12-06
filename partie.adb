@@ -8,11 +8,15 @@ package body Partie is
 		while not(FinPartie) loop
 			if Joueur_Courant = Joueur1 then
 				-- Joueur 1 joue
+				-- On demande au joueur1 ce qu'il veut jouer
 				Coup_suivant := Coup_Joueur1(E);
+				-- On affiche sous forme de phrase ce que le joueur 1 veut jouer
 				Affiche_Coup(Coup_suivant);
+				-- On calcule l'état après avoir joué le coup
 				E := Etat_Suivant(E, Coup_suivant);
 				New_Line;
 				New_Line;
+				-- On affiche le jeu
 				Affiche_Jeu(E);
 				if Est_Gagnant(E, Joueur1) then
 					Put(Nom_Joueur1 & " a gagné");

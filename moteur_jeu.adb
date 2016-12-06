@@ -33,6 +33,7 @@ package body Moteur_jeu is
 		Meilleur_Coup : Coup;
 		Eva,I : Integer;
 		Advers : Joueur := Adversaire(J);
+		K : Joueur;
 	begin
 		if Est_Gagnant(EtatSuivant, JoueurMoteur) then
 			return 100;
@@ -44,7 +45,8 @@ package body Moteur_jeu is
 			return -100;
 		end if;
 		if P = 0 then
-			Eva := Eval(EtatSuivant);
+			K := Joueur2;
+			Eva := Eval(EtatSuivant, K) - Eval(EtatSuivant, Adversaire(K));
 		else
 			if J = Joueur1 then
 				L := Coups_Possibles(EtatSuivant, Advers);

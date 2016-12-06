@@ -2,6 +2,7 @@ package body Puissance4 is
 
 	procedure Initialiser(etat_initial : in out Etat) is
 	begin
+		-- Initialisation du tableau d'état, on met toutes les cases à 0
 		for i in 1..Hauteur loop
 			for j in 1..Largeur loop
 			   etat_initial(i,j) := 0;
@@ -14,9 +15,12 @@ package body Puissance4 is
 		I : Integer := 1;
 		F : Etat := E;
 	begin
+		-- Dans cette fonction on ne vérifie pas si le coup est possible, cette vérification est déjà faite dans la fonction demande_coup
+		-- On regarde la hauteur des pions déjà alignés dans la colonne où le joueur veut jouer
 		while I < Hauteur and then F(Hauteur + 1 - I,C.Colonne) /= 0 loop
 				I := I + 1;
 		end loop;
+		-- On place le pion à la bonne hauteur
 		if C.J = Joueur1 then
 			F(Hauteur + 1 - I,C.Colonne) := 1;
 		else
@@ -31,7 +35,6 @@ package body Puissance4 is
 		NbAligneVertical : Integer := 0;
 		NbAligneDiagonal : Integer := 0;
 		NbAligneDiagonalInverse : Integer := 0;
-		Diagonal : Integer := 0;
 		NumeroJoueur : Integer;
 		Compteur : Integer := 0;
 	begin
@@ -77,38 +80,41 @@ package body Puissance4 is
 		end loop;
 
 		-- Alignement diagonal
-		Diagonal := Integer'Max(Hauteur, Largeur);
-		for I in 0..(Diagonal - NombreAligne) loop
-			for J in 1..(Diagonal - I) loop
-
-				if E(J, J + I) = NumeroJoueur then
-					NbAligneDiagonal := NbAligneDiagonal + 1;
-				else
-					NbAligneDiagonal := 0;
-				end if;
-				if NbAligneDiagonal = NombreAligne then
-					return true;
-				end if;
+		for I in 1..(Hauteur - NombreAligne + 1) loop
+			for J in 1..(Largeur - NombreAligne + 1) loop
+				for K in 0..(NombreAligne - 1) loop
+					if E(I + K, J + K) = NumeroJoueur then
+						NbAligneDiagonal := NbAligneDiagonal + 1;
+					else
+						NbAligneDiagonal := 0;
+					end if;
+					-- Si le nombre de jetons alignés diagonalement est bon
+					if NbAligneDiagonal = NombreAligne then
+						return true;
+					end if;
+				end loop;
+				NbAligneDiagonal := 0;
 			end loop;
-			NbAligneDiagonal := 0;
 		end loop;
 		Compteur := 0;
 
 
-
 		-- Alignement diagonal inversé
-		for I in 0..(Diagonal - NombreAligne) loop
-			for J in 1..(Diagonal - I) loop
-				if E(Diagonal - I - J + 1, J) = NumeroJoueur then
-					NbAligneDiagonalInverse := NbAligneDiagonalInverse + 1;
-				else
-					NbAligneDiagonalInverse := 0;
-				end if;
-				if NbAligneDiagonalInverse = NombreAligne then
-					return true;
-				end if;
+		for I in 1..(Hauteur - NombreAligne + 1) loop
+			for J in 1..(Largeur - NombreAligne + 1) loop
+				for K in 0..(NombreAligne-1) loop
+					if E(I + (3-K), J + K) = NumeroJoueur then
+						NbAligneDiagonalInverse := NbAligneDiagonalInverse + 1;
+					else
+						NbAligneDiagonalInverse := 0;
+					end if;
+					-- Si le nombre de jetons alignés diagonalement inversé est bon
+					if NbAligneDiagonalInverse = NombreAligne then
+						return true;
+					end if;
+				end loop;
+				NbAligneDiagonalInverse := 0;
 			end loop;
-			NbAligneDiagonalInverse := 0;
 		end loop;
 
 		return false;
@@ -118,6 +124,7 @@ package body Puissance4 is
     function Est_Nul(E : Etat) return Boolean is
 		GrilleRemplie : Boolean := true;
 	begin
+		-- On regarde si la grille est remplie
 		for I in 1..Hauteur loop
 			for J in 1..Largeur loop
 				if E(I, J) = 0 then
@@ -125,6 +132,7 @@ package body Puissance4 is
 				end if;
 			end loop;
 		end loop;
+		-- Si la grille est remplie et que les deux joueurs n'ont pas gagné, alors match nul
 		if not(Est_Gagnant(E, Joueur1)) AND not(Est_Gagnant(E,Joueur2)) AND GrilleRemplie then
 			return true;
 		end if;
@@ -183,7 +191,7 @@ package body Puissance4 is
 		Break : Boolean := false;
 	begin
 		while CoupValable = false loop
-			Put_Line("Que voulez-vous jouer Paul ?");
+			Put_Line("Que voulez-vous jouer Joueur 1 ?");
 			Get(ColonneJ);
 			-- Vérifier que la demande de coup est possible
 			while I <= Hauteur and not(break) loop
@@ -215,7 +223,7 @@ package body Puissance4 is
 		Break : Boolean := false;
 	begin
 		while CoupValable = false loop
-			Put_Line("Que voulez-vous jouer Pierre ?");
+			Put_Line("Que voulez-vous jouer Joueur 2 ?");
 			Get(ColonneJ);
 			-- Vérifier que la demande de coup est possible
 			while I <= Hauteur and not(break) loop
@@ -237,7 +245,10 @@ package body Puissance4 is
 		CoupJoueur2.Colonne := ColonneJ;
 		return CoupJoueur2;
 	end Demande_Coup_Joueur2;
+	
+	-- Fonctions utilisée pour le moteur de jeu 
 
+	-- retourne la liste des coups possibles sous la forme d'une liste
 	function Coups_Possibles(E : Etat; J : Joueur) return Liste_Coups.Liste is
 		I : Integer := 1;
 		break : Boolean := false;
@@ -264,36 +275,43 @@ package body Puissance4 is
 		return L;
 	end Coups_Possibles;
 
-	function Eval(E : Etat) return Integer is
+	-- On évalue l'état statique
+	function Eval(E : Etat; J : Joueur) return Integer is
 		NbAligneHorizontal : Integer := 0;
 		NbAligneVertical : Integer := 0;
 		NbAligneDiagonal : Integer := 0;
 		NbAligneDiagonalInverse : Integer := 0;
-		Diagonal : Integer := 0;
-		NumeroJoueur : Integer := 2;
+		NumeroJoueur : Integer := 0;
 		Compteur : Integer := 0;
 		Eva : Integer := 0;
 	begin
-
-		-- Alignement horizontal
+		
+		If J = Joueur1 then
+			NumeroJoueur := 1;
+		else
+			NumeroJoueur := 2;
+		end if;
+		
+		-- Attribution des points sur l'alignement horizontal
 		for I in 1..Hauteur loop
 			for J in 1..Largeur loop
-				-- Alignement Horizontal
 				if E(I, J) = NumeroJoueur then
 					NbAligneHorizontal := NbAligneHorizontal + 1;
 				else
 					NbAligneHorizontal := 0;
 				end if;
-
-				-- Si le nombre de jetons alignés horizontalement est bon
+				-- Si le coup nous permet d'avoir 3 pions alignés, on attribue +10
 				if NbAligneHorizontal = NombreAligne-1 then
 					Eva := Eva + 10;
+				-- Si le coup nous permet d'avoir 2 pions alignés, on attribue +5
+				elsif NbAligneHorizontal = NombreAligne-2 then
+					Eva := Eva + 5;
 				end if;
 			end loop;
 			NbAligneHorizontal := 0;
 		end loop;
 
-		-- Alignement vertical
+		-- Attribution des points sur l'alignement vertical
 		for I in 1..Largeur loop
 			for J in 1..Hauteur loop
 				if E(J, I) = NumeroJoueur then
@@ -301,46 +319,58 @@ package body Puissance4 is
 				else
 					NbAligneVertical := 0;
 				end if;
-
-				-- Si le nombre de jetons alignés verticalement est bon
+				-- Si le coup nous permet d'avoir 3 pions alignés, on attribue +10
 				if NbAligneVertical = NombreAligne-1 then
 					Eva := Eva + 10;
+				-- Si le coup nous permet d'avoir 2 pions alignés, on attribue +5
+				elsif NbAligneVertical = NombreAligne-2 then
+					Eva := Eva + 5;
 				end if;
 			end loop;
 			NbAligneVertical := 0;
 		end loop;
 
-		-- Alignement diagonal
-		Diagonal := Integer'Max(Hauteur, Largeur);
-		for I in 0..(Diagonal - NombreAligne) loop
-			for J in 1..(Diagonal - I) loop
-
-				if E(J, J + I) = NumeroJoueur then
-					NbAligneDiagonal := NbAligneDiagonal + 1;
-				else
-					NbAligneDiagonal := 0;
-				end if;
-				if NbAligneDiagonal = NombreAligne-1 then
-					Eva := Eva + 10;
-				end if;
+		-- Attribution des points sur l'alignement diagonal
+		for I in 1..(Hauteur - NombreAligne + 1) loop
+			for J in 1..(Largeur - NombreAligne + 1) loop
+				for K in 0..(NombreAligne - 1) loop
+					if E(I + K, J + K) = NumeroJoueur then
+						NbAligneDiagonal := NbAligneDiagonal + 1;
+					else
+						NbAligneDiagonal := 0;
+					end if;
+					-- Si le coup nous permet d'avoir 3 pions alignés, on attribue +10
+					if NbAligneDiagonal = NombreAligne-1 then
+						Eva := Eva + 10;
+					-- Si le coup nous permet d'avoir 2 pions alignés, on attribue +5
+					elsif NbAligneDiagonal = NombreAligne-2 then
+						Eva := Eva + 5;
+					end if;
+				end loop;
+				NbAligneDiagonal := 0;
 			end loop;
-			NbAligneDiagonal := 0;
 		end loop;
 		Compteur := 0;
 
-		-- Alignement diagonal inversé
-		for I in 0..(Diagonal - NombreAligne) loop
-			for J in 1..(Diagonal - I) loop
-				if E(Diagonal - I - J + 1, J) = NumeroJoueur then
-					NbAligneDiagonalInverse := NbAligneDiagonalInverse + 1;
-				else
-					NbAligneDiagonalInverse := 0;
-				end if;
-				if NbAligneDiagonalInverse = NombreAligne-1 then
-					Eva := Eva +10;
-				end if;
+		-- Attribution des points sur l'alignement diagonal inversé
+		for I in 1..(Hauteur - NombreAligne + 1) loop
+			for J in 1..(Largeur - NombreAligne + 1) loop
+				for K in 0..(NombreAligne-1) loop
+					if E(I + (3-K), J + K) = NumeroJoueur then
+						NbAligneDiagonalInverse := NbAligneDiagonalInverse + 1;
+					else
+						NbAligneDiagonalInverse := 0;
+					end if;
+					-- Si le coup nous permet d'avoir 3 pions alignés, on attribue +10
+					if NbAligneDiagonalInverse = NombreAligne-1 then
+						Eva := Eva +10;
+					-- Si le coup nous permet d'avoir 2 pions alignés, on attribue +5
+					elsif NbAligneDiagonalInverse = NombreAligne-2 then
+						Eva := Eva + 5;
+					end if;
+				end loop;
+				NbAligneDiagonalInverse := 0;
 			end loop;
-			NbAligneDiagonalInverse := 0;
 		end loop;
 		return Eva;
 	end Eval;

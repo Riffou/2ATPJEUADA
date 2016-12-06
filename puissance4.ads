@@ -41,7 +41,7 @@ package Puissance4 is
 	--Retourne les coups possibles
 	function Coups_Possibles(E : Etat; J : Joueur) return Liste_Coups.Liste;
 	--Retourne la valeur du coup pour l'ordinateur
-	function Eval(E : Etat) return Integer;
+	function Eval(E : Etat; J : Joueur) return Integer;
 
 	procedure Initialiser (etat_initial : in out Etat);
 
