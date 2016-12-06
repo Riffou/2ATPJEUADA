@@ -53,38 +53,33 @@ package body liste_generique is
 	function Creer_Iterateur (L : Liste) return Iterateur is
 		It : Iterateur;
 	begin
-		if L = null then
-			return null;
-		else
-			It.E := L.E;
-			It.Next := L.Suiv;
-			return It;
-		end if;
+		It := new Iterateur_Interne'(L => L);
+		return It;
 	end Creer_Iterateur;
 
 	-- Liberation d'un iterateur
 	procedure Libere_Iterateur(It : in out Iterateur) is
 	begin
+		Libere_Liste(It.L);
 		LibereIt(It);
 	end Libere_Iterateur;
 
 	-- Avance d'une case dans la liste
 	procedure Suivant(It : in out Iterateur) is
 	begin
-		It.E := It.Next.E;
-		It.Next := It.Next.Suiv;
+		It.L := It.L.Suiv;
 	end Suivant;
 
 	-- Retourne l'element courant
 	function Element_Courant(It : Iterateur) return Element is
 	begin
-		return It.E;
+		return It.L.E;
 	end Element_Courant;
 
 	-- Verifie s'il reste un element a parcourir
 	function A_Suivant(It : Iterateur) return Boolean is
 	begin
-		if It.Next = null then
+		if It.L.Suiv = null then
 			return false;
 		else
 			return true;

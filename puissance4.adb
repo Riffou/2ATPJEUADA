@@ -183,6 +183,7 @@ package body Puissance4 is
 		Break : Boolean := false;
 	begin
 		while CoupValable = false loop
+			Put_Line("Que voulez-vous jouer Paul ?");
 			Get(ColonneJ);
 			-- Vérifier que la demande de coup est possible
 			while I <= Hauteur and not(break) loop
@@ -214,6 +215,7 @@ package body Puissance4 is
 		Break : Boolean := false;
 	begin
 		while CoupValable = false loop
+			Put_Line("Que voulez-vous jouer Pierre ?");
 			Get(ColonneJ);
 			-- Vérifier que la demande de coup est possible
 			while I <= Hauteur and not(break) loop

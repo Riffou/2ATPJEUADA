@@ -8,9 +8,9 @@ RV NO_STANDARD_STORAGE_POOLS
 RV NO_DEFAULT_INITIALIZATION
 RV SPARK
 
-U moteur_jeu%b		moteur_jeu.adb		de21699d NE OO PK GE
+U moteur_jeu%b		moteur_jeu.adb		abdbaefb NE OO PK GE
 
-U moteur_jeu%s		moteur_jeu.ads		4e32f4f1 BN EE NE OO PK GE
+U moteur_jeu%s		moteur_jeu.ads		9e3225d4 BN EE NE OO PK GE
 W ada%s			ada.ads			ada.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 W liste_generique%s	liste_generique.adb	liste_generique.ali
@@ -29,9 +29,9 @@ D a-tiinio.ads		20121213103024 aa04e5d6
 D a-unccon.ads		20121213103024 f9eb8f06
 D interfac.ads		20121213103024 129923ea
 D i-cstrea.ads		20130106093208 3286f6aa
-D liste_generique.ads	20161205215429 61fb96d3
+D liste_generique.ads	20161206004818 b1fb47f6
 D moteur_jeu.ads	20161205184810 2a10ee1f
-D moteur_jeu.adb	20161205224414 f4318782
+D moteur_jeu.adb	20161205233720 81cb40e4
 D participant.ads	20161205104553 4dfe5e91
 D puissance4.ads	20161205204819 704a2778
 D system.ads		20121213103024 90249111
@@ -56,14 +56,14 @@ X 1 ada.ads
 X 8 a-textio.ads
 49K13*Text_IO 471e16 14|3w10
 X 13 liste_generique.ads
-15k9*Liste_Generique 63e20 14|2w6 20r37
+15k9*Liste_Generique 62e20 14|2w6 20r37
 16P10 Liste(49R10[14|20]) 14|23r32[20] 15|4r33[14|20] 26r33[14|20]
 17P10 Iterateur(56R10[14|20]) 15|5r34[14|20] 27r34[14|20]
-32V14 Creer_Iterateur{17P10[14|20]} 15|5s59[14|20] 38s51[14|20] 52s51[14|20]
-38U15 Suivant 15|13s37[14|20] 42s53[14|20] 56s53[14|20]
-41V14 Element_Courant{14|8+10} 15|10s46[14|20] 14s42[14|20] 39s62[14|20]
-. 43s64[14|20] 53s62[14|20] 57s64[14|20]
-44V14 A_Suivant{boolean} 15|12s35[14|20] 41s51[14|20] 55s51[14|20]
+32V14 Creer_Iterateur{17P10[14|20]} 15|5s59[14|20] 47s51[14|20] 61s51[14|20]
+38U15 Suivant 15|13s37[14|20] 51s53[14|20] 65s53[14|20]
+41V14 Element_Courant{14|8+10} 15|10s46[14|20] 14s42[14|20] 48s62[14|20]
+. 52s64[14|20] 62s62[14|20] 66s64[14|20]
+44V14 A_Suivant{boolean} 15|12s35[14|20] 50s51[14|20] 64s51[14|20]
 49R10 Cellule
 56R10 Iterateur_Interne
 X 14 moteur_jeu.ads
@@ -72,32 +72,32 @@ X 14 moteur_jeu.ads
 11V19 Etat_Suivant{7+10} 11>32 11>42 15|25s39
 11*32 E{7+10}
 11*42 C{8+10}
-13V19 Est_Gagnant{boolean} 13>31 13>41
+13V19 Est_Gagnant{boolean} 13>31 13>41 15|33s20 39s20
 13*31 E{7+10}
 13e41 J{16|3E10}
-15V19 Est_Nul{boolean} 15>27
+15V19 Est_Nul{boolean} 15>27 15|36s20
 15*27 E{7+10}
 18U20 Affiche_Coup 18>33 20r59
 18*33 C{8+10}
 20K18 Liste_Coups[13|15] 23r20 15|4r21 5r22 5r47 10r34 12r23 13r25 14r30
-. 26r21 27r22 38r39 39r50 41r39 42r41 43r52 52r39 53r50 55r39 56r41 57r52
-22V19 Coups_Possibles{13|16P10[20]} 22>35 22>45 15|4s42 37s38 51s38
+. 26r21 27r22 47r39 48r50 50r39 51r41 52r52 61r39 62r50 64r39 65r41 66r52
+22V19 Coups_Possibles{13|16P10[20]} 22>35 22>45 15|4s42 46s38 60s38
 22*35 E{7+10}
 22e45 J{16|3E10}
-25V19 Eval{integer} 25>24 15|34s32
+25V19 Eval{integer} 25>24 15|43s32
 25*24 E{7+10}
 27i5 P{natural} 15|11r41 15r46
 29e5 JoueurMoteur{16|3E10} 15|4r61 11r59 15r52
 31k9*Moteur_Jeu 7z10 8z10 11z19 13z19 15z19 18z20 20z18 22z19 25z19 27z5
-. 29z5 47l5 47e15 15|1b14 69l5 69t15
+. 29z5 47l5 47e15 15|1b14 78l5 78t15
 36V14*Choix_Coup{8+10} 36>25 15|3b18 22l13 22t23
 36*25 E{7+10} 15|3b29 4r58 11r38 15r43
 44V14 Eval_Min_Max{integer} 44>27 44>37 44>50 44>60 15|11s25 15s30 24b18
-. 40s40 44s46 54s40 58s46 67l13 67t25
+. 49s40 53s46 63s40 67s46 76l13 76t25
 44*27 E{7+10} 15|24b31 25r52
-44i37 P{natural} 15|24b41 33r20 40r66 44r72 54r66 58r72
+44i37 P{natural} 15|24b41 42r20 49r66 53r72 63r66 67r72
 44*50 C{8+10} 15|24b54 25r55
-44e60 J{16|3E10} 15|24b64 31r47 36r28
+44e60 J{16|3E10} 15|24b64 31r47 33r45 45r28
 X 15 moteur_jeu.adb
 4p17 L{13|16P10[14|20]} 5r75
 5p17 It{13|17P10[14|20]} 10r62 12r45 13m45 13r45 14r58
@@ -105,19 +105,20 @@ X 15 moteur_jeu.adb
 7*17 Meilleur_Coup{14|8+10} 10m17 11r44 17m33 21r24
 8i17 Eval{integer} 11m17 16r30 18m33
 8i22 I{integer} 15m25 16r28 18r41
-25*17 EtatSuivant{14|7+10} 34r37 37r54 40r53 44r59 51r54 54r53 58r59
-26p17 L{13|16P10[14|20]} 37m33 38r67 51m33 52r67
-27p17 It{13|17P10[14|20]} 38m33 39r78 41r61 42m61 42r61 43r80 52m33 53r78
-. 55r61 56m61 56r61 57r80
-28*17 Courant{14|8+10} 43m41 44r77 46r66 57m41 58r77 60r66
-29*17 Meilleur_Coup{14|8+10} 39m33 40r71 46m49 53m33 54r71 60m49
-30i17 Eva{integer} 34m25 40m33 45r46 47m49 54m33 59r46 61m49 66r24
-30i21 I{integer} 44m41 45r44 47r56 58m41 59r44 61r56
-31e17 Advers{16|3E10} 37r67 40r86 44r86 51r67 54r86 58r86
+25*17 EtatSuivant{14|7+10} 33r32 36r28 39r32 43r37 46r54 49r53 53r59 60r54
+. 63r53 67r59
+26p17 L{13|16P10[14|20]} 46m33 47r67 60m33 61r67
+27p17 It{13|17P10[14|20]} 47m33 48r78 50r61 51m61 51r61 52r80 61m33 62r78
+. 64r61 65m61 65r61 66r80
+28*17 Courant{14|8+10} 52m41 53r77 55r66 66m41 67r77 69r66
+29*17 Meilleur_Coup{14|8+10} 48m33 49r71 55m49 62m33 63r71 69m49
+30i17 Eva{integer} 43m25 49m33 54r46 56m49 63m33 68r46 70m49 75r24
+30i21 I{integer} 53m41 54r44 56r56 67m41 68r44 70r56
+31e17 Advers{16|3E10} 39r45 46r67 49r86 53r86 60r67 63r86 67r86
 X 16 participant.ads
 1K9*Participant 14|1w6 1r23 16|8e16
 3E10*Joueur 14|13r45 22r49 29r20 44r64 15|24r68 31r26 16|3e38
-3n21*Joueur1{3E10} 15|36r32
+3n21*Joueur1{3E10} 15|45r32
 6V14*Adversaire{3E10} 15|31s36
 X 17 puissance4.ads
 15k9*Puissance4 14|4w6 17|48e15

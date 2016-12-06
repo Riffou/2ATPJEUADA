@@ -56,8 +56,7 @@ private
     type Iterateur_Interne;
     type Iterateur is access Iterateur_Interne;
     type Iterateur_Interne is record
-        E: Element;
-        Next: Liste;
+        L : Liste;
     end record;
 
 end Liste_Generique;

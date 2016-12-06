@@ -30,6 +30,15 @@ package body Moteur_jeu is
 		Eva,I : Integer;
 		Advers : Joueur := Adversaire(J);
 	begin
+		if Est_Gagnant(EtatSuivant, J) then
+			return 100;
+		end if;
+		if Est_Nul(EtatSuivant) then
+			return 0;
+		end if;
+		if Est_Gagnant(EtatSuivant, Advers) then
+			return -100;
+		end if;
 		if P = 0 then
 			Eva := Eval(EtatSuivant);
 		else

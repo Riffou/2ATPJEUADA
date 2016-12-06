@@ -8,7 +8,6 @@ package body Partie is
 		while not(FinPartie) loop
 			if Joueur_Courant = Joueur1 then
 				-- Joueur 1 joue
-				Put_Line("Que voulez-vous jouer " & Nom_Joueur1 & " ?");
 				Coup_suivant := Coup_Joueur1(E);
 				Affiche_Coup(Coup_suivant);
 				E := Etat_Suivant(E, Coup_suivant);
@@ -27,7 +26,6 @@ package body Partie is
 				Joueur_Courant := Joueur2;
 			else
 				-- Joueur 2 joue
-				Put_Line("Que voulez-vous jouer " & Nom_Joueur2 & " ?");
 				Coup_suivant := Coup_Joueur2(E);
 				Affiche_Coup(Coup_suivant);
 				E := Etat_Suivant(E, Coup_suivant);
@@ -47,5 +45,5 @@ package body Partie is
 			end if;
 		end loop;
 	end Joue_Partie;
-	
+
 end Partie;
